@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import date
-from typing import Optional
+from typing import Literal, Optional
 
 class LeaveCreate(BaseModel):
     employee_id:str
@@ -19,4 +19,4 @@ class LeaveResponse(BaseModel):
     status:str
 
 class LeaveUpdate(BaseModel):
-    status:Optional[str]=None
+    status:Optional[Literal["pending", "approved", "rejected"]]=None

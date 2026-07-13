@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../config.json";
+import { getJWT } from "./auth";
 
 export const apiClient = axios.create({
     baseURL: config.backend_url,
@@ -9,13 +10,14 @@ export const apiClient = axios.create({
 });
 
 apiClient.interceptors.request.use(
-    config => {
-        const token = localStorage.getItem("token")
+    requestConfig => {
+        const token = getJWT()
 
         if(token){
-            config.headers.Authorization = `Bearer ${token}`
+            requestConfig.headers.Authorization = `Bearer ${token}`
         }
-        return config
+
+        return requestConfig
     },
     (error) => Promise.reject(error)
 )

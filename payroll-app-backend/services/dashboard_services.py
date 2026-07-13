@@ -51,10 +51,9 @@ def get_attendance_chart_service():
         "status": "absent"
     })
 
-    leave = leave_collection.count_documents({
-        "status":"pending",
-        "end_date":{"$gte":today},
-        "start_date":{"$lte":today}
+    leave = attendance_collection.count_documents({
+        "status":"leave",
+        "date": today
     })
 
     return {

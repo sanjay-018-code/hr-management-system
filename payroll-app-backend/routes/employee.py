@@ -16,12 +16,12 @@ def create_employee(employee:EmployeeCreate):
 @router.get("/",response_model=EmployeeListResponse)
 def get_employees(
     page:int=Query(1,ge=1),
-    limit:int=Query(1,ge=1,le=50), 
+    limit:int=Query(10,ge=1,le=50), 
     search:str |None =Query(None),
     sort_by:str=Query("name"),
     order:SortOrderEnum=Query(SortOrderEnum.asc),
     department: str|None=Query(None) ,
-    current_user = Depends(allow_roles(["admin","hr"]))
+    # current_user = Depends(allow_roles(["admin","hr"]))
     ):
     return get_all_employees(page, limit, search, sort_by, order,department)
 

@@ -6,4 +6,5 @@ class DepartmentCreate(BaseModel):
 class DepartmentResponse(DepartmentCreate):
     id : str
     name : str
+    total_employees: int
     is_deleted : bool = False

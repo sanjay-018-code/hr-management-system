@@ -11,7 +11,7 @@ def create_leave(leave:LeaveCreate,current_user = Depends(allow_roles(["employee
     return create_leave_services(leave)
 
 @router.get("/",response_model=list[LeaveResponse])
-def get_all_leave():
+def get_all_leave(current_user=Depends(allow_roles(["hr", "admin"]))):
     return get_all_leaves_services()
 
 @router.patch("/{leave_id}", response_model=LeaveResponse)

@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import { getCurrentUser , isAuthenticated} from '../../utils/auth'
 
 const ProtectedRoute = ({children, allowedRoles}) => {
-    if(!isAuthenticated){
+    if(!isAuthenticated()){
         return <Navigate to="/" replace />
     }
 

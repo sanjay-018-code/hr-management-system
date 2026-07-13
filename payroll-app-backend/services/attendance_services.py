@@ -17,7 +17,8 @@ def create_attendance(attendance:AttendanceCreate):
         "date": data["date"].isoformat(),
         "status": data["status"],
         "check_in": data["check_in"].isoformat(),
-        "check_out": data["check_out"].isoformat()
+        "check_out": data["check_out"].isoformat(),
+        "is_deleted": False,
     }
     result = attendance_collection.insert_one(serialized_data)
 
@@ -30,7 +31,10 @@ def get_all_attendance_service(page, limit, employee_id = None, order = "desc"):
 
     sort_order = (-1 if order=="desc" else 1)
     query = {
-        "is_deleted":False
+        "$or": [
+            {"is_deleted": False},
+            {"is_deleted": {"$exists": False}},
+        ]
     }
     if employee_id:
         query["employee_id"] = employee_id
@@ -77,7 +81,7 @@ def update_attendance_services(attendance_id, attendance:AttendanceUpdate):
 
 def delete_attendance_services(attendance_id):
     result = attendance_collection.update_one({
-        "_id":attendance_id
+        "_id":ObjectId(attendance_id)
     },{
         "$set":{
             "is_deleted":True

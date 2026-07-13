@@ -1,11 +1,11 @@
 import React from 'react'
-import Dashboard from './Dashboard/Dashboard';
+import { Navigate } from 'react-router-dom';
+import Dashboard from './Hr-Components/HrDashboard/Dashboard';
 import { isAuthenticated } from '../../utils/auth';
-import Login from '../login/Login';
 
 const Hr = () => {
-    if(!isAuthenticated){
-        return <Navigate to={<Login/>}/>
+    if(!isAuthenticated()){
+        return <Navigate to="/" replace />
     }
     return(
         <div>
