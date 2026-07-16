@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { get_all_employees } from '../../services/employeeServices'
 import { getAllPayroll } from '../../services/payrollSeervices'
+import Navbar from '../Navbar/Navbar'
 
 const currentMonthKey = new Date().toISOString().slice(0, 7)
 
@@ -110,7 +111,9 @@ const AdminReports = () => {
   }
 
   return (
-    <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
+    <>
+      <Navbar title="Payroll Reports" showBackButton={true} />
+      <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
       <div className='mx-auto max-w-7xl'>
         <div className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between'>
           <div>
@@ -214,7 +217,8 @@ const AdminReports = () => {
           </>
         )}
       </div>
-    </main>
+      </main>
+    </>
   )
 }
 

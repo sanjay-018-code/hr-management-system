@@ -17,12 +17,14 @@ def get_dashboard_details():
     today = str(date.today())
     present_today = attendance_collection.count_documents({
         "date":today,
-        "status": "present"
+        "status": "present",
+        "is_deleted": False
     })
 
     absent_today = attendance_collection.count_documents({
         "date":today,
-        "status": "absent"
+        "status": "absent",
+        "is_deleted": False
     })
 
     pending_leaves = leave_collection.count_documents({
@@ -43,17 +45,20 @@ def get_attendance_chart_service():
     today = str(date.today())
     present = attendance_collection.count_documents({
         "date":today,
-        "status": "present"
+        "status": "present",
+        "is_deleted": False
     })
 
     absent = attendance_collection.count_documents({
         "date":today,
-        "status": "absent"
+        "status": "absent",
+        "is_deleted": False
     })
 
     leave = attendance_collection.count_documents({
         "status":"leave",
-        "date": today
+        "date": today,
+        "is_deleted": False
     })
 
     return {

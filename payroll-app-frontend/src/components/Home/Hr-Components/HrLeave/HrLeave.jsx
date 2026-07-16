@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
 import { get_all_leaves, update_leave_status } from '../../../../services/leaveServices'
+import Navbar from '../../../Navbar/Navbar'
 
 const statusClasses = {
   pending: 'bg-amber-100 text-amber-800',
@@ -76,7 +77,9 @@ const HrLeave = ({ workspaceLabel = 'HR Workspace' }) => {
   }
 
   return (
-    <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
+    <>
+      <Navbar title="Leave Management" showBackButton={true} />
+      <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
       <div className='mx-auto max-w-7xl'>
         <div className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
           <div>
@@ -197,7 +200,8 @@ const HrLeave = ({ workspaceLabel = 'HR Workspace' }) => {
           )}
         </section>
       </div>
-    </main>
+      </main>
+    </>
   )
 }
 

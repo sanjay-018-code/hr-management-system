@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { get_all_departments, get_department_by_id, get_dep_emp, update_department, delete_department } from '../../../../services/departmentServices'
 import { update_employee, delete_employee } from '../../../../services/employeeServices'
 import UpdateEmployeeForm from '../../../Shared/UpdateEmployeeForm'
+import Navbar from '../../../Navbar/Navbar'
 
 const initialEmployeeForm = {
     name: '',
@@ -195,6 +196,8 @@ const Departments = ({ workspaceLabel = 'HR Workspace' }) => {
     }
 
   return (
+    <>
+    <Navbar title="Department Management" showBackButton={true} />
     <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
         <div className='mx-auto flex max-w-7xl flex-col gap-6 lg:flex-row'>
             <section className='w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm lg:w-[40%]'>
@@ -321,6 +324,7 @@ const Departments = ({ workspaceLabel = 'HR Workspace' }) => {
             </div>
         )}
     </main>
+    </>
   )
 }
 

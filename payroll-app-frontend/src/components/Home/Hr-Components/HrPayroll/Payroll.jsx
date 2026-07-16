@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getAllPayroll, generatePayroll, getEmployeePayroll } from '../../../../services/payrollSeervices'
 import { get_all_employees } from '../../../../services/employeeServices'
+import Navbar from '../../../Navbar/Navbar'
 
 const Payroll = ({ workspaceLabel = 'HR Workspace' }) => {
   const [employees, setEmployees] = useState([])
@@ -111,7 +112,9 @@ const Payroll = ({ workspaceLabel = 'HR Workspace' }) => {
   )
 
   return (
-    <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
+    <>
+      <Navbar title="Payroll Management" showBackButton={true} />
+      <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
       <div className='mx-auto max-w-7xl'>
         <div className='mb-6'>
           <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>{workspaceLabel}</p>
@@ -277,7 +280,8 @@ const Payroll = ({ workspaceLabel = 'HR Workspace' }) => {
           </div>
         </section>
       </div>
-    </main>
+      </main>
+    </>
   )
 }
 

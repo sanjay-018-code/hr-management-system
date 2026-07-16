@@ -18,6 +18,6 @@ def get_attendance(page:int=1,limit:int=10, employee_id:str|None=None,order:str=
 def update_attendance(attendance_id:str, attendance:AttendanceUpdate, current_user=Depends(allow_roles(["hr","admin"]))):
     return update_attendance_services(attendance_id, attendance)
 
-@router.delete("/{attendance_id}", response_model=AttendanceResponse)
+@router.delete("/{attendance_id}")
 def delete_attendance(attendance_id:str, current_user=Depends(allow_roles(["hr","admin"]))):
     return delete_attendance_services(attendance_id, )

@@ -40,3 +40,7 @@ export function getCurrentUser(){
 export function isAuthenticated(){
     return !!getJWT()
 }
+
+export function logout(){
+    localStorage.removeItem(TOKEN_STORAGE_KEY)
+}

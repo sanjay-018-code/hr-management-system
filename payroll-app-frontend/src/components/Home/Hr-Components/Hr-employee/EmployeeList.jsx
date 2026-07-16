@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { get_all_employees, add_employee, delete_employee } from "../../../../services/employeeServices";
 import EmployeeCard from "./EmployeeCard";
 import EmployeeSearch from "./EmployeeSearch";
+import Navbar from "../../../Navbar/Navbar";
 
 const initialFormData = {
     name: "",
@@ -135,6 +136,8 @@ const EmployeeList = ({ workspaceLabel = 'HR Workspace' }) => {
 };
 
     return (
+        <>
+        <Navbar title="Employee Management" showBackButton={true} />
         <main className="flex min-h-screen bg-slate-100 text-slate-900">
             <EmployeeSearch 
                 onSearch={handleSearch}
@@ -202,6 +205,7 @@ const EmployeeList = ({ workspaceLabel = 'HR Workspace' }) => {
                 />
             </div>
         </main>
+        </>
     );
 };
 

@@ -20,5 +20,5 @@ class AttendanceResponse(BaseModel):
 
 class AttendanceUpdate(BaseModel):
     status: Optional[str] = None
-    check_in: Optional[time] = None
-    check_out: Optional[time] = None
+    check_in: Optional[str] = None
+    check_out: Optional[str] = None

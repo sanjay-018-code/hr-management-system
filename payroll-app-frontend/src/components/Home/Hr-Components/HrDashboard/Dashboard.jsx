@@ -12,6 +12,7 @@ const Dashboard = ({ workspaceLabel = 'HR Workspace', dashboardTitle = 'HR Dashb
     const [attendance, setAttendance] = useState(null)
     const [dashboard, setDashboard] = useState(null)
     const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const fetchDashboard = async () => {
         await apiClient.get("/dashboard/").then(
@@ -36,6 +37,13 @@ const Dashboard = ({ workspaceLabel = 'HR Workspace', dashboardTitle = 'HR Dashb
         })
     }
 
+    const handleRefresh = async () => {
+        setLoading(true)
+        setError("")
+        await Promise.all([fetchAttendance(), fetchDashboard()])
+        setLoading(false)
+    }
+
     useEffect(()=>{
         fetchAttendance()
         fetchDashboard()
@@ -46,10 +54,20 @@ const Dashboard = ({ workspaceLabel = 'HR Workspace', dashboardTitle = 'HR Dashb
   return (
     <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
       <div className='mx-auto max-w-7xl'>
-        <div className='mb-6'>
-          <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>{workspaceLabel}</p>
-          <h1 className='text-3xl font-bold'>{dashboardTitle}</h1>
-          {user && <p className='mt-2 text-lg font-semibold text-slate-700'>Welcome {user.username}!</p>}
+        <div className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+          <div>
+            <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>{workspaceLabel}</p>
+            <h1 className='text-3xl font-bold'>{dashboardTitle}</h1>
+            {user && <p className='mt-2 text-lg font-semibold text-slate-700'>Welcome {user.username}!</p>}
+          </div>
+          <button
+            type='button'
+            onClick={handleRefresh}
+            disabled={loading}
+            className='rounded bg-slate-800 px-4 py-2 font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-400'
+          >
+            {loading ? 'Refreshing...' : 'Refresh'}
+          </button>
         </div>
 
         {error && <p className='mb-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700'>{error}</p>}

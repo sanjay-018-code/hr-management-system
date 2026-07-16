@@ -60,3 +60,32 @@ def update_leave_services(leave_id,leave:LeaveUpdate):
         reason=updated["reason"],
         status=updated["status"]
     )
+
+def get_approved_leaves_for_date(date_str):
+    from datetime import datetime
+    
+    target_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    
+    query = {
+        "status": "approved",
+        "start_date": {"$lte": date_str},
+        "end_date": {"$gte": date_str}
+    }
+    
+    result = leave_collection.find(query)
+    
+    leaves = []
+    for record in result:
+        leaves.append(
+            LeaveResponse(
+                id=str(record["_id"]),
+                employee_id=record["employee_id"],
+                leave_type=record["leave_type"],
+                start_date=record["start_date"],
+                end_date=record["end_date"],
+                reason=record.get("reason"),
+                status=record["status"]
+            )
+        )
+    
+    return leaves

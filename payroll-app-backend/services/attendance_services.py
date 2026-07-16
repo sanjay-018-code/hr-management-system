@@ -7,8 +7,30 @@ from app.database import attendance_collection
 def create_attendance(attendance:AttendanceCreate):
     attendance_date = attendance.date.isoformat()
     existing = attendance_collection.find_one({"employee_id": attendance.employee_id, "date": attendance_date})
+    
     if existing:
-        raise HTTPException(401,"Attendance already exists")
+        if existing.get("is_deleted") == True:
+            result = attendance_collection.update_one({
+                "_id": existing["_id"]
+            }, {
+                "$set": {
+                    "status": attendance.status,
+                    "check_in": attendance.check_in.isoformat(),
+                    "check_out": attendance.check_out.isoformat(),
+                    "is_deleted": False
+                }
+            })
+            updated = attendance_collection.find_one({"_id": existing["_id"]})
+            return AttendanceResponse(
+                id=str(updated["_id"]),
+                employee_id=updated["employee_id"],
+                date=updated["date"],
+                status=updated["status"],
+                check_in=updated["check_in"],
+                check_out=updated["check_out"]
+            )
+        else:
+            raise HTTPException(401,"Attendance already exists")
 
     data = attendance.model_dump()
     data["is_deleted"] = False
