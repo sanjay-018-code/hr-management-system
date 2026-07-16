@@ -14,7 +14,7 @@ const initialEmployeeForm = {
     email: ''
 }
 
-const Departments = () => {
+const Departments = ({ workspaceLabel = 'HR Workspace' }) => {
     const [departments, setDepartments] = useState([])
     const [employees, setEmployees] = useState([])
     const [department, setDepartment] = useState(null)
@@ -199,7 +199,7 @@ const Departments = () => {
         <div className='mx-auto flex max-w-7xl flex-col gap-6 lg:flex-row'>
             <section className='w-full overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm lg:w-[40%]'>
                 <div className='border-b border-slate-200 p-4'>
-                    <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>HR Workspace</p>
+                    <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>{workspaceLabel}</p>
                     <h1 className='text-2xl font-bold'>Departments</h1>
                 </div>
                 <div className='max-h-[calc(100vh-12rem)] overflow-y-auto p-4'>

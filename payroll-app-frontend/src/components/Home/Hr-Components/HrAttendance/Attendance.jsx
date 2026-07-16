@@ -90,7 +90,7 @@ const buildMonthOptions = (referenceDate = new Date()) => {
   return months
 }
 
-const Attendance = () => {
+const Attendance = ({ workspaceLabel = 'HR Workspace' }) => {
   const [records, setRecords] = useState([])
   const [employees, setEmployees] = useState([])
   const [employeeError, setEmployeeError] = useState('')
@@ -379,7 +379,7 @@ const Attendance = () => {
       <div className='mx-auto max-w-7xl'>
         <div className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
           <div>
-            <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>HR Workspace</p>
+            <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>{workspaceLabel}</p>
             <h1 className='text-3xl font-bold'>Attendance Management</h1>
           </div>
           <div className='flex gap-2'>

@@ -76,7 +76,8 @@ def generate_payroll_services(payroll:PayrollCreate):
         "leave_days": unpaid_leave_days,
         "ot_amount": round(ot_amount,2),
         "deduction":round(deduction,2),
-        "final":round(final_salary,2)
+        "final":round(final_salary,2),
+        "is_deleted": False
     }
 
     result = payroll_collection.insert_one(data)

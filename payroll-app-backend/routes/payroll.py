@@ -14,7 +14,7 @@ def generate_payroll(payroll:PayrollCreate,current_user = Depends(allow_roles(["
 def get_all_payroll(current_user = Depends(allow_roles(["hr","admin"]))):
     return get_all_payroll_service()
 
-@router.get("/employee/{employee_id}", response_model=PayrollResponse)
+@router.get("/employee/{employee_id}", response_model=list[PayrollResponse])
 def get_employee_payroll(employee_id:str, current_user = Depends(allow_roles(["hr","admin"]))):
     return get_employee_payroll_service(employee_id)
 

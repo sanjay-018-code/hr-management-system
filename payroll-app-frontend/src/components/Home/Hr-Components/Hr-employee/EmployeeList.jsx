@@ -14,7 +14,7 @@ const initialFormData = {
     email: "",
 };
 
-const EmployeeList = () => {
+const EmployeeList = ({ workspaceLabel = 'HR Workspace' }) => {
     const [employees, setEmployees] = useState([]);
     const [employeeDetails, setEmployeeDetails] = useState(null);
     const [error, setError] = useState(null);
@@ -148,7 +148,7 @@ const EmployeeList = () => {
             <div className="w-[75%] overflow-y-auto p-4 md:p-8" >
                 <div className="mb-6 flex flex-row items-center justify-between" >
                     <div>
-                        <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">HR Workspace</p>
+                        <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">{workspaceLabel}</p>
                         <h1 className="text-3xl font-bold">Employees</h1>
                     </div>
                     <button onClick={handleAddEmployee} className="rounded bg-slate-800 px-4 py-2 font-semibold text-white hover:bg-slate-700">Add Employee</button>

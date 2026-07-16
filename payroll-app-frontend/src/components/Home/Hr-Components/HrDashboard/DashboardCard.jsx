@@ -8,14 +8,14 @@ const cardStyles = {
   absent_today: 'border-red-200 bg-red-50 text-red-800',
 }
 
-const DashboardCard = ({ data }) => {
+const DashboardCard = ({ data, routePrefix = '/hr', showAdminReports = false }) => {
   const navigate = useNavigate()
   const safeData = data ?? {}
   const cards = [
-    { key: 'total_employees', label: 'Total Employees', value: safeData.total_employees ?? 0, route: '/hr/employees' },
-    { key: 'total_departments', label: 'Total Departments', value: safeData.total_departments ?? 0, route: '/hr/departments' },
-    { key: 'present_today', label: 'Present Today', value: safeData.present_today ?? 0 },
-    { key: 'absent_today', label: 'Absent Today', value: safeData.absent_today ?? 0 }
+    { key: 'total_employees', label: 'Total Employees', value: safeData.total_employees ?? 0, route: `${routePrefix}/employees` },
+    { key: 'total_departments', label: 'Total Departments', value: safeData.total_departments ?? 0, route: `${routePrefix}/departments` },
+    { key: 'present_today', label: 'Present Today', value: safeData.present_today ?? 0, route: `${routePrefix}/attendance` },
+    { key: 'absent_today', label: 'Absent Today', value: safeData.absent_today ?? 0, route: `${routePrefix}/attendance` }
   ]
 
   const handleClick = (route) => {
@@ -25,10 +25,13 @@ const DashboardCard = ({ data }) => {
   }
 
   const handleLeaveClick = () => {
-    navigate("/hr/leave")
+    navigate(`${routePrefix}/leave`)
   }
   const handleAttClick = () => {
-    navigate("/hr/attendance")
+    navigate(`${routePrefix}/attendance`)
+  }
+  const handlePayrollClick = () => {
+    navigate(`${routePrefix}/payroll`)
   }
 
   return (
@@ -37,7 +40,7 @@ const DashboardCard = ({ data }) => {
         <div
           key={card.key}
           onClick={() => handleClick(card.route)}
-          className={`rounded-lg border p-4 ${cardStyles[card.key]} ${card.route ? 'cursor-pointer hover:opacity-90' : ''}`}
+          className={`rounded-lg border p-4 ${cardStyles[card.key]} cursor-pointer hover:opacity-90`}
         >
           <p className='text-sm font-semibold'>{card.label}</p>
           <p className='mt-1 text-3xl font-bold'>{card.value}</p>
@@ -55,11 +58,25 @@ const DashboardCard = ({ data }) => {
       )}
 
       <div
-        className='flex cursor-pointer items-center justify-center rounded-lg bg-slate-800 p-4 text-lg font-bold text-white hover:bg-slate-700 sm:col-span-2'
+        className='flex cursor-pointer items-center justify-center rounded-lg bg-slate-800 p-4 text-lg font-bold text-white hover:bg-slate-700 sm:col-span-1'
         onClick={handleAttClick}
       >
         Mark Attendance
       </div>
+      <div
+        className='flex cursor-pointer items-center justify-center rounded-lg bg-slate-800 p-4 text-lg font-bold text-white hover:bg-slate-700 sm:col-span-1'
+        onClick={handlePayrollClick}
+      >
+        Payroll
+      </div>
+      {showAdminReports && (
+        <div
+          className='flex cursor-pointer items-center justify-center rounded-lg bg-indigo-700 p-4 text-lg font-bold text-white hover:bg-indigo-600 sm:col-span-1'
+          onClick={() => handleClick(`${routePrefix}/reports`)}
+        >
+          Payroll Reports
+        </div>
+      )}
     </div>
   )
 }

@@ -14,7 +14,7 @@ const formatDate = (date) => {
   return Number.isNaN(parsedDate.getTime()) ? date : parsedDate.toLocaleDateString()
 }
 
-const HrLeave = () => {
+const HrLeave = ({ workspaceLabel = 'HR Workspace' }) => {
   const [leaves, setLeaves] = useState([])
   const [statusFilter, setStatusFilter] = useState('all')
   const [loading, setLoading] = useState(true)
@@ -80,7 +80,7 @@ const HrLeave = () => {
       <div className='mx-auto max-w-7xl'>
         <div className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
           <div>
-            <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>HR Workspace</p>
+            <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>{workspaceLabel}</p>
             <h1 className='text-3xl font-bold'>Leave Management</h1>
           </div>
           <button

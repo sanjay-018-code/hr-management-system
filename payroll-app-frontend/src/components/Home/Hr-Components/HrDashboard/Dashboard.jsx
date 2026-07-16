@@ -7,7 +7,7 @@ import { apiClient } from '../../../../utils/api-client'
 import { getCurrentUser } from '../../../../utils/auth'
 import DashboardCard from './DashboardCard'
 
-const Dashboard = () => {
+const Dashboard = ({ workspaceLabel = 'HR Workspace', dashboardTitle = 'HR Dashboard', routePrefix = '/hr', showAdminReports = false }) => {
     
     const [attendance, setAttendance] = useState(null)
     const [dashboard, setDashboard] = useState(null)
@@ -47,14 +47,14 @@ const Dashboard = () => {
     <main className='min-h-screen bg-slate-100 p-4 text-slate-900 md:p-8'>
       <div className='mx-auto max-w-7xl'>
         <div className='mb-6'>
-          <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>HR Workspace</p>
-          <h1 className='text-3xl font-bold'>HR Dashboard</h1>
+          <p className='text-sm font-semibold uppercase tracking-wide text-slate-500'>{workspaceLabel}</p>
+          <h1 className='text-3xl font-bold'>{dashboardTitle}</h1>
           {user && <p className='mt-2 text-lg font-semibold text-slate-700'>Welcome {user.username}!</p>}
         </div>
 
         {error && <p className='mb-4 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700'>{error}</p>}
 
-        <DashboardCard data={dashboard} />
+        <DashboardCard data={dashboard} routePrefix={routePrefix} showAdminReports={showAdminReports} />
 
         <section className='mt-6 overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-sm'>
           <h2 className='mb-4 text-center text-2xl font-bold text-slate-900'>Attendance</h2>
